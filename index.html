@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="My Lists">
+<title>My Lists</title>
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACs0lEQVR42u3dQXHEMAxAUQNpWeypIHpYOKVQEguml6JyEXR2kziSYr8/BqDJvGuk1qV/aj6B4BAcgkNwCA7BITgEh+AQHBIcgkNwCA7BITgEh+AQHIJDgkNwCA7BITgEh+AQHIJDcMT3c38b8lKG//i6D3lwDNaQYmWUhspW2sQsTiISw6ICkTY9i4FE4lnkEmnryDjoI1dGio+2lIzdPirIiPfRVpOxw0cdGcE+4IAjFUc1GZt8VJMR6QMOOPJw1JTxoo+aMsJ8wAEHHHDAAQcccFwfR2UZT31UlhHjAw444IADDjjggAMOOOCAAw444IADDjjggAMOOOCAAw444IADDjjggAMOOOCAAw444IADDjjggAMOOOCAoyyO7qcmPzXBAQcccMABBxxwJOPo1j5Z+wQHHJP42DS8VZNwwJGEo1tvbb11fR+7h7cYf3IfB4d3UmNOIgOHd4xnHiInDe+M1yWtpAzvAKDWCg7BITgEh+AQHIJDcAiO4T1un0NeyvC/3+9DHhyDNaRYGaWhspU2MYuTiMSwqECkTc9iIJF4FrlE2joyDvrIlZHioy0lY7ePCjLifbTVZOzwUUdGsA844EjFUU3GJh/VZET6gAOOPBw1Zbzoo6aMMB9wwAEHHHDAAQcc18dRWcZTH5VlxPiAAw444IADDjjggAMOOOCAAw444IADDjjggAMOOOCAAw444IADDjjggAMOOOCAAw444IADDjjggAMOOOAoi6P7qclPTXDAAQcccMABBxzJOLq1T9Y+wQHHJD42DW/VJBxwJOHo1ltbb13fx+7hLcaf3MfB4Z3UmJPIwOEd45mHyEnDO+N1SSspwzsAqLWCQ3AIDsEhOASH4BAcgkNwCA4JDsEhOASH4BAcgkNwCA7BIcEhOASH4BAcgkNwCA7BITik/ge+gcNqE0PVEAAAAABJRU5ErkJggg==">
+<style>
+  /* === LIGHT THEME === */
+  :root {
+    --bg: #f2f2f7; --card: #ffffff; --text: #1c1c1e; --sub: #8e8e93;
+    --accent: #6C5CE7; --accent-light: rgba(108,92,231,.12); --danger: #ff3b30;
+    --green: #34c759; --border: rgba(0,0,0,.08); --nav-bg: rgba(249,249,249,.92);
+    --tag-bg: rgba(0,0,0,.06); --modal-bg: rgba(0,0,0,.4);
+  }
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) {
+      --bg: #1c1c1e; --card: #2c2c2e; --text: #ffffff; --sub: #8e8e93;
+      --accent: #a29bfe; --accent-light: rgba(162,155,254,.15);
+      --border: rgba(255,255,255,.08); --nav-bg: rgba(28,28,30,.92);
+      --tag-bg: rgba(255,255,255,.10); --modal-bg: rgba(0,0,0,.6);
+    }
+  }
+  html[data-theme="dark"] {
+    --bg: #1c1c1e; --card: #2c2c2e; --text: #ffffff; --sub: #8e8e93;
+    --accent: #a29bfe; --accent-light: rgba(162,155,254,.15);
+    --border: rgba(255,255,255,.08); --nav-bg: rgba(28,28,30,.92);
+    --tag-bg: rgba(255,255,255,.10); --modal-bg: rgba(0,0,0,.6);
+  }
+  html[data-theme="light"] {
+    --bg: #f2f2f7; --card: #ffffff; --text: #1c1c1e; --sub: #8e8e93;
+    --accent: #6C5CE7; --accent-light: rgba(108,92,231,.12); --danger: #ff3b30;
+    --green: #34c759; --border: rgba(0,0,0,.08); --nav-bg: rgba(249,249,249,.92);
+    --tag-bg: rgba(0,0,0,.06); --modal-bg: rgba(0,0,0,.4);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+    background: var(--bg); color: var(--text);
+    min-height: 100vh; min-height: 100dvh;
+    padding-top: env(safe-area-inset-top);
+  }
+
+  /* === HEADER === */
+  .header {
+    position: sticky; top: 0; z-index: 20;
+    padding: calc(env(safe-area-inset-top) + 12px) 20px 12px;
+    background: var(--nav-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .header h1 { font-size: 24px; font-weight: 700; letter-spacing: -.5px; }
+  .header-btns { display: flex; gap: 8px; align-items: center; }
+  .icon-btn {
+    width: 34px; height: 34px; border-radius: 50%; background: var(--tag-bg);
+    border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    color: var(--sub); font-size: 18px;
+  }
+  .icon-btn:active { opacity: .6; }
+  .icon-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* === BACK BUTTON === */
+  .back-btn {
+    background: none; border: none; color: var(--accent); font-size: 16px;
+    cursor: pointer; display: flex; align-items: center; gap: 4px; padding: 0;
+    font-family: inherit; font-weight: 500;
+  }
+  .back-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* === HOME GRID === */
+  .grid { padding: 20px 16px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .grid-tile {
+    border-radius: 16px; padding: 18px 16px; aspect-ratio: 1;
+    display: flex; flex-direction: column; justify-content: space-between;
+    cursor: pointer; transition: transform .15s, opacity .15s; position: relative;
+    overflow: hidden;
+  }
+  .grid-tile:active { transform: scale(.96); opacity: .85; }
+  .grid-tile .tile-icon { font-size: 28px; margin-bottom: auto; }
+  .grid-tile .tile-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .grid-tile .tile-count { font-size: 12px; opacity: .75; }
+
+  /* Tile colors */
+  .tile-reading    { background: #EEEDFE; }
+  .tile-reading .tile-icon, .tile-reading .tile-name { color: #3C3489; }
+  .tile-reading .tile-count { color: #534AB7; }
+
+  .tile-gift-cards { background: #E1F5EE; }
+  .tile-gift-cards .tile-icon, .tile-gift-cards .tile-name { color: #085041; }
+  .tile-gift-cards .tile-count { color: #0F6E56; }
+
+  .tile-wisdom     { background: #FAEEDA; }
+  .tile-wisdom .tile-icon, .tile-wisdom .tile-name { color: #633806; }
+  .tile-wisdom .tile-count { color: #854F0B; }
+
+  .tile-fashion    { background: #FBEAF0; }
+  .tile-fashion .tile-icon, .tile-fashion .tile-name { color: #72243E; }
+  .tile-fashion .tile-count { color: #993556; }
+
+  .tile-restaurants { background: #FAECE7; }
+  .tile-restaurants .tile-icon, .tile-restaurants .tile-name { color: #712B13; }
+  .tile-restaurants .tile-count { color: #993C1D; }
+
+  .tile-gift-ideas { background: #E6F1FB; }
+  .tile-gift-ideas .tile-icon, .tile-gift-ideas .tile-name { color: #0C447C; }
+  .tile-gift-ideas .tile-count { color: #185FA5; }
+
+  /* Dark mode tile overrides */
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) .tile-reading    { background: #26215C; }
+    html:not([data-theme="light"]) .tile-reading .tile-icon, html:not([data-theme="light"]) .tile-reading .tile-name { color: #CECBF6; }
+    html:not([data-theme="light"]) .tile-reading .tile-count { color: #AFA9EC; }
+    html:not([data-theme="light"]) .tile-gift-cards { background: #04342C; }
+    html:not([data-theme="light"]) .tile-gift-cards .tile-icon, html:not([data-theme="light"]) .tile-gift-cards .tile-name { color: #9FE1CB; }
+    html:not([data-theme="light"]) .tile-gift-cards .tile-count { color: #5DCAA5; }
+    html:not([data-theme="light"]) .tile-wisdom     { background: #412402; }
+    html:not([data-theme="light"]) .tile-wisdom .tile-icon, html:not([data-theme="light"]) .tile-wisdom .tile-name { color: #FAC775; }
+    html:not([data-theme="light"]) .tile-wisdom .tile-count { color: #EF9F27; }
+    html:not([data-theme="light"]) .tile-fashion    { background: #4B1528; }
+    html:not([data-theme="light"]) .tile-fashion .tile-icon, html:not([data-theme="light"]) .tile-fashion .tile-name { color: #F4C0D1; }
+    html:not([data-theme="light"]) .tile-fashion .tile-count { color: #ED93B1; }
+    html:not([data-theme="light"]) .tile-restaurants { background: #4A1B0C; }
+    html:not([data-theme="light"]) .tile-restaurants .tile-icon, html:not([data-theme="light"]) .tile-restaurants .tile-name { color: #F5C4B3; }
+    html:not([data-theme="light"]) .tile-restaurants .tile-count { color: #F0997B; }
+    html:not([data-theme="light"]) .tile-gift-ideas { background: #042C53; }
+    html:not([data-theme="light"]) .tile-gift-ideas .tile-icon, html:not([data-theme="light"]) .tile-gift-ideas .tile-name { color: #B5D4F4; }
+    html:not([data-theme="light"]) .tile-gift-ideas .tile-count { color: #85B7EB; }
+  }
+  html[data-theme="dark"] .tile-reading    { background: #26215C; }
+  html[data-theme="dark"] .tile-reading .tile-icon, html[data-theme="dark"] .tile-reading .tile-name { color: #CECBF6; }
+  html[data-theme="dark"] .tile-reading .tile-count { color: #AFA9EC; }
+  html[data-theme="dark"] .tile-gift-cards { background: #04342C; }
+  html[data-theme="dark"] .tile-gift-cards .tile-icon, html[data-theme="dark"] .tile-gift-cards .tile-name { color: #9FE1CB; }
+  html[data-theme="dark"] .tile-gift-cards .tile-count { color: #5DCAA5; }
+  html[data-theme="dark"] .tile-wisdom     { background: #412402; }
+  html[data-theme="dark"] .tile-wisdom .tile-icon, html[data-theme="dark"] .tile-wisdom .tile-name { color: #FAC775; }
+  html[data-theme="dark"] .tile-wisdom .tile-count { color: #EF9F27; }
+  html[data-theme="dark"] .tile-fashion    { background: #4B1528; }
+  html[data-theme="dark"] .tile-fashion .tile-icon, html[data-theme="dark"] .tile-fashion .tile-name { color: #F4C0D1; }
+  html[data-theme="dark"] .tile-fashion .tile-count { color: #ED93B1; }
+  html[data-theme="dark"] .tile-restaurants { background: #4A1B0C; }
+  html[data-theme="dark"] .tile-restaurants .tile-icon, html[data-theme="dark"] .tile-restaurants .tile-name { color: #F5C4B3; }
+  html[data-theme="dark"] .tile-restaurants .tile-count { color: #F0997B; }
+  html[data-theme="dark"] .tile-gift-ideas { background: #042C53; }
+  html[data-theme="dark"] .tile-gift-ideas .tile-icon, html[data-theme="dark"] .tile-gift-ideas .tile-name { color: #B5D4F4; }
+  html[data-theme="dark"] .tile-gift-ideas .tile-count { color: #85B7EB; }
+
+  /* === LIST VIEW === */
+  .list-view { padding: 12px 16px; padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
+  .list-view .search-bar {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--tag-bg); border-radius: 10px; padding: 8px 12px; margin-bottom: 12px;
+  }
+  .list-view .search-bar svg { width: 16px; height: 16px; stroke: var(--sub); fill: none; stroke-width: 2; flex-shrink: 0; }
+  .list-view .search-bar input {
+    flex: 1; border: none; background: none; font-size: 15px;
+    color: var(--text); outline: none; font-family: inherit;
+  }
+  .list-view .search-bar input::placeholder { color: var(--sub); }
+
+  /* === LIST ITEMS === */
+  .item-card {
+    background: var(--card); border-radius: 13px; padding: 14px 16px;
+    margin-bottom: 8px; border: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 12px;
+    transition: transform .15s;
+  }
+  .item-card:active { transform: scale(.98); }
+  .item-check {
+    width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--sub);
+    flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    margin-top: 1px; transition: all .2s;
+  }
+  .item-check.done { background: var(--green); border-color: var(--green); }
+  .item-check svg { width: 12px; height: 12px; stroke: white; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+  .item-check.done svg { opacity: 1; }
+  .item-body { flex: 1; min-width: 0; }
+  .item-title { font-size: 15px; font-weight: 500; word-break: break-word; }
+  .item-title.done { text-decoration: line-through; color: var(--sub); }
+  .item-meta { font-size: 12px; color: var(--sub); margin-top: 3px; word-break: break-word; }
+  .item-actions { display: flex; gap: 4px; flex-shrink: 0; margin-top: 2px; }
+  .item-actions button {
+    width: 28px; height: 28px; border-radius: 50%; border: none;
+    background: var(--tag-bg); cursor: pointer; display: flex;
+    align-items: center; justify-content: center; color: var(--sub);
+  }
+  .item-actions button:active { opacity: .6; }
+  .item-actions button svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .item-actions .del-btn:active { color: var(--danger); }
+
+  /* Empty state */
+  .empty-state { text-align: center; padding: 40px 20px; color: var(--sub); }
+  .empty-state .empty-icon { font-size: 48px; margin-bottom: 12px; opacity: .5; }
+  .empty-state p { font-size: 14px; }
+
+  /* === FAB === */
+  .fab {
+    position: fixed; bottom: calc(20px + env(safe-area-inset-bottom));
+    right: 20px; width: 52px; height: 52px; border-radius: 50%;
+    background: var(--accent); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 26px; z-index: 30;
+    box-shadow: 0 4px 14px rgba(108,92,231,.4);
+  }
+  .fab:active { transform: scale(.92); }
+  .fab svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* === MODAL === */
+  .modal-overlay {
+    position: fixed; inset: 0; background: var(--modal-bg);
+    display: flex; align-items: flex-end; justify-content: center;
+    z-index: 100; padding: 0 0 env(safe-area-inset-bottom);
+    opacity: 1; transition: opacity .2s;
+  }
+  .modal-overlay.hidden { display: none; }
+  .modal {
+    background: var(--card); border-radius: 16px 16px 0 0; padding: 24px 20px 32px;
+    width: 100%; max-width: 500px;
+  }
+  .modal h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+  .modal input, .modal textarea {
+    width: 100%; border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px 14px; font-size: 15px; font-family: inherit;
+    background: var(--bg); color: var(--text); margin-bottom: 10px;
+    outline: none; resize: vertical;
+  }
+  .modal input:focus, .modal textarea:focus { border-color: var(--accent); }
+  .modal textarea { min-height: 60px; }
+  .modal-btns { display: flex; gap: 10px; margin-top: 6px; }
+  .modal-btns button {
+    flex: 1; padding: 12px; border-radius: 10px; font-size: 15px;
+    font-weight: 600; cursor: pointer; font-family: inherit; border: none;
+  }
+  .btn-cancel { background: var(--tag-bg); color: var(--text); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:active { opacity: .8; }
+  .btn-danger { background: var(--danger); color: #fff; margin-top: 8px; border: none; border-radius: 10px; padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; font-family: inherit; }
+
+  /* === AUTH === */
+  .auth-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; padding: 20px; text-align: center; }
+  .auth-screen h2 { font-size: 22px; margin-bottom: 8px; }
+  .auth-screen p { color: var(--sub); font-size: 14px; margin-bottom: 24px; max-width: 280px; }
+  .auth-btn { background: var(--accent); color: #fff; border: none; border-radius: 12px; padding: 14px 32px; font-size: 16px; font-weight: 600; cursor: pointer; font-family: inherit; }
+  .auth-btn:active { opacity: .8; }
+  .auth-error { color: var(--danger); font-size: 13px; margin-top: 12px; max-width: 300px; }
+
+  /* === SYNC STATUS === */
+  .sync-status { font-size: 11px; color: var(--sub); text-align: center; padding: 8px; }
+  .sync-status.error { color: var(--danger); }
+
+  /* === TOAST === */
+  .toast {
+    position: fixed; bottom: calc(80px + env(safe-area-inset-bottom));
+    left: 50%; transform: translateX(-50%);
+    background: #333; color: #fff; padding: 10px 18px; border-radius: 20px;
+    font-size: 14px; z-index: 200; opacity: 0; transition: opacity .2s;
+    pointer-events: none; white-space: nowrap;
+  }
+  .toast.show { opacity: 1; }
+
+  /* === LOADING === */
+  .loading { display: flex; align-items: center; justify-content: center; min-height: 60vh; }
+  .spinner { width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* === SETTINGS PANEL === */
+  .settings { padding: 20px; }
+  .settings h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+  .setting-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .setting-row label { font-size: 15px; }
+  .setting-row select { font-size: 14px; background: var(--tag-bg); border: none; border-radius: 8px; padding: 6px 10px; color: var(--text); font-family: inherit; }
+  .logout-btn { margin-top: 20px; background: none; border: 1px solid var(--danger); color: var(--danger); border-radius: 10px; padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%; font-family: inherit; }
+
+  /* === BOOK DETAIL === */
+  .book-detail { padding: 20px 16px; padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
+  .book-cover-wrap { display: flex; justify-content: center; margin-bottom: 20px; }
+  .book-cover {
+    width: 140px; height: 210px; border-radius: 8px; object-fit: cover;
+    background: var(--tag-bg); display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  }
+  .book-cover img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+  .book-cover .no-cover { font-size: 40px; opacity: .4; }
+  .book-info { text-align: center; margin-bottom: 20px; }
+  .book-info h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .book-info .book-author { font-size: 15px; color: var(--sub); margin-bottom: 8px; }
+  .book-info .book-meta-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+  .book-info .book-pill { background: var(--tag-bg); border-radius: 8px; padding: 4px 10px; font-size: 12px; color: var(--sub); }
+  .book-synopsis { background: var(--card); border-radius: 13px; padding: 16px; border: 1px solid var(--border); }
+  .book-synopsis h3 { font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--sub); text-transform: uppercase; letter-spacing: .5px; }
+  .book-synopsis p { font-size: 14px; line-height: 1.6; color: var(--text); }
+  .book-loading { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 40px; color: var(--sub); font-size: 14px; }
+  .book-edit-btn { margin-top: 16px; background: var(--tag-bg); border: none; border-radius: 10px; padding: 12px; font-size: 14px; font-weight: 500; cursor: pointer; width: 100%; color: var(--text); font-family: inherit; }
+
+  /* === RESTAURANT DETAIL === */
+  .resto-detail { padding: 20px 16px; padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
+  .resto-hero { width: 100%; height: 180px; border-radius: 13px; object-fit: cover; background: var(--tag-bg); margin-bottom: 16px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .resto-hero img { width: 100%; height: 100%; object-fit: cover; }
+  .resto-hero .no-photo { font-size: 48px; opacity: .4; }
+  .resto-info { margin-bottom: 16px; }
+  .resto-info h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .resto-info .resto-cuisine { font-size: 14px; color: var(--sub); margin-bottom: 6px; }
+  .resto-info .resto-rating { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+  .resto-info .resto-stars { color: #EF9F27; font-size: 14px; }
+  .resto-info .resto-rating-text { font-size: 13px; color: var(--sub); }
+  .resto-info .resto-address { font-size: 13px; color: var(--sub); margin-bottom: 4px; }
+  .resto-info .resto-hours { font-size: 13px; color: var(--sub); }
+  .resto-info .resto-price { display: inline-block; background: var(--tag-bg); border-radius: 6px; padding: 3px 8px; font-size: 12px; color: var(--sub); margin-top: 6px; }
+  .resto-section { background: var(--card); border-radius: 13px; padding: 16px; border: 1px solid var(--border); margin-bottom: 12px; }
+  .resto-section h3 { font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--sub); text-transform: uppercase; letter-spacing: .5px; }
+  .resto-section p { font-size: 14px; line-height: 1.6; color: var(--text); }
+  .resto-photos { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; -webkit-overflow-scrolling: touch; }
+  .resto-photos img { width: 120px; height: 90px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+  .resto-link { display: block; text-align: center; margin-top: 12px; color: var(--accent); font-size: 14px; font-weight: 500; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+<div class="toast" id="toast"></div>
+
+<div class="modal-overlay hidden" id="modal">
+  <div class="modal">
+    <h2 id="modal-title">Add Item</h2>
+    <input type="text" id="modal-input-title" placeholder="Title" />
+    <textarea id="modal-input-meta" placeholder="Details (optional)"></textarea>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-primary" id="modal-submit" onclick="submitModal()">Add</button>
+    </div>
+    <button class="btn-danger hidden" id="modal-delete" onclick="deleteFromModal()">Delete Item</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CONFIG
+// ============================================================
+const CONFIG = {
+  CLIENT_ID: 'be9c7cdd-8ed8-4697-894f-0e080f186a56',
+  TENANT: '0ae860f2-b1e0-4222-b0e1-37314eddf4df',
+  BASE_PATH: '/me/drive/root:/0 - Data/Lists',
+  SCOPES: 'Files.ReadWrite offline_access'
+};
+const REDIRECT_URI = location.origin + location.pathname;
+
+// List definitions
+const LISTS = [
+  { id: 'reading', file: 'reading.md', name: 'Reading', icon: '📚', tileClass: 'tile-reading', fields: ['Author', 'Recommended by', 'Notes'] },
+  { id: 'gift-cards', file: 'gift-cards.md', name: 'Gift Cards', icon: '🎁', tileClass: 'tile-gift-cards', fields: ['Amount', 'Expiration', 'Notes'] },
+  { id: 'wisdom', file: 'words-of-wisdom.md', name: 'Words of Wisdom', icon: '💡', tileClass: 'tile-wisdom', fields: ['Source'] },
+  { id: 'fashion', file: 'fashion.md', name: 'Fashion', icon: '👔', tileClass: 'tile-fashion', fields: ['Category', 'Notes'] },
+  { id: 'restaurants', file: 'restaurants.md', name: 'Restaurants', icon: '🍽️', tileClass: 'tile-restaurants', fields: ['Cuisine', 'Location', 'Recommended by', 'Notes'] },
+  { id: 'gift-ideas', file: 'gift-ideas.md', name: 'Gift Ideas', icon: '🎯', tileClass: 'tile-gift-ideas', fields: ['For', 'Occasion', 'Notes'] },
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let accessToken = null;
+let currentView = 'home'; // 'home' | 'list' | 'settings' | 'book-detail'
+let currentList = null;   // list definition object
+let listData = {};        // { listId: { raw: '', items: [] } }
+let searchQ = '';
+let syncStatus = '';
+let syncError = false;
+let currentBookItem = null; // item being viewed in book detail
+let bookDetailCache = {};   // { title: { cover, author, synopsis, pages, year, subjects } }
+
+// Theme
+let themeMode = localStorage.getItem('themeMode') || 'auto';
+applyTheme();
+
+// ============================================================
+// THEME
+// ============================================================
+function applyTheme() {
+  document.documentElement.setAttribute('data-theme', themeMode);
+  localStorage.setItem('themeMode', themeMode);
+}
+
+// ============================================================
+// PKCE AUTH
+// ============================================================
+function base64urlEncode(buf) {
+  return btoa(String.fromCharCode(...new Uint8Array(buf)))
+    .replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+}
+async function generatePKCE() {
+  const verifier = base64urlEncode(crypto.getRandomValues(new Uint8Array(32)));
+  const challenge = base64urlEncode(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier)));
+  return { verifier, challenge };
+}
+async function login() {
+  const { verifier, challenge } = await generatePKCE();
+  const state = base64urlEncode(crypto.getRandomValues(new Uint8Array(16)));
+  localStorage.setItem('pkce_verifier', verifier);
+  localStorage.setItem('pkce_state', state);
+  const p = new URLSearchParams({
+    client_id: CONFIG.CLIENT_ID, response_type: 'code',
+    redirect_uri: REDIRECT_URI, scope: CONFIG.SCOPES,
+    code_challenge: challenge, code_challenge_method: 'S256', state
+  });
+  location.href = `https://login.microsoftonline.com/${CONFIG.TENANT}/oauth2/v2.0/authorize?${p}`;
+}
+async function exchangeCode(code, returnedState) {
+  const verifier = localStorage.getItem('pkce_verifier');
+  const savedState = localStorage.getItem('pkce_state');
+  if (!verifier || returnedState !== savedState) return false;
+  try {
+    const r = await fetch(`https://login.microsoftonline.com/${CONFIG.TENANT}/oauth2/v2.0/token`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        client_id: CONFIG.CLIENT_ID, grant_type: 'authorization_code',
+        code, redirect_uri: REDIRECT_URI, code_verifier: verifier
+      })
+    });
+    const d = await r.json();
+    if (d.access_token) {
+      accessToken = d.access_token;
+      localStorage.setItem('ms_token', d.access_token);
+      if (d.refresh_token) localStorage.setItem('ms_refresh_token', d.refresh_token);
+      history.replaceState({}, '', location.pathname);
+      return true;
+    }
+  } catch(e) { console.error(e); }
+  return false;
+}
+async function refreshToken() {
+  const rt = localStorage.getItem('ms_refresh_token');
+  if (!rt) return false;
+  try {
+    const r = await fetch(`https://login.microsoftonline.com/${CONFIG.TENANT}/oauth2/v2.0/token`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        client_id: CONFIG.CLIENT_ID, grant_type: 'refresh_token',
+        refresh_token: rt, scope: CONFIG.SCOPES
+      })
+    });
+    const d = await r.json();
+    if (d.access_token) {
+      accessToken = d.access_token;
+      localStorage.setItem('ms_token', d.access_token);
+      if (d.refresh_token) localStorage.setItem('ms_refresh_token', d.refresh_token);
+      return true;
+    }
+  } catch(e) { console.error(e); }
+  return false;
+}
+
+// ============================================================
+// GRAPH API
+// ============================================================
+async function graphFetch(path, opts = {}) {
+  if (!accessToken) return null;
+  const r = await fetch(`https://graph.microsoft.com/v1.0${path}`, {
+    ...opts,
+    headers: { Authorization: `Bearer ${accessToken}`, ...(opts.headers || {}) }
+  });
+  if (r.status === 401) {
+    const ok = await refreshToken();
+    if (ok) return graphFetch(path, opts);
+    accessToken = null; localStorage.removeItem('ms_token');
+    render(); return null;
+  }
+  return r;
+}
+
+// ============================================================
+// LIST DATA: LOAD & SAVE
+// ============================================================
+async function loadList(listDef) {
+  const path = `${CONFIG.BASE_PATH}/${listDef.file}:/content`;
+  const r = await graphFetch(path);
+  if (!r || !r.ok) {
+    // File might not exist — create it
+    if (r && r.status === 404) {
+      const content = `# ${listDef.name}\n\n`;
+      await graphFetch(path, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'text/plain' },
+        body: content
+      });
+      listData[listDef.id] = { raw: content, items: [] };
+    }
+    return;
+  }
+  const raw = await r.text();
+  listData[listDef.id] = { raw, items: parseItems(raw, listDef) };
+}
+
+async function loadAllLists() {
+  await Promise.all(LISTS.map(l => loadList(l)));
+}
+
+async function saveList(listDef) {
+  const path = `${CONFIG.BASE_PATH}/${listDef.file}:/content`;
+  const data = listData[listDef.id];
+  if (!data) return;
+  syncStatus = 'Saving...'; syncError = false;
+  try {
+    const r = await graphFetch(path, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'text/plain' },
+      body: data.raw
+    });
+    if (r && r.ok) {
+      syncStatus = 'Saved ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+      syncError = false;
+    } else {
+      syncStatus = 'Save failed'; syncError = true;
+    }
+  } catch(e) {
+    syncStatus = 'Save failed'; syncError = true;
+  }
+  render();
+}
+
+// ============================================================
+// PARSE ITEMS FROM MARKDOWN
+// ============================================================
+function parseItems(raw, listDef) {
+  const lines = raw.split('\n');
+  const items = [];
+  lines.forEach((line, idx) => {
+    // Match: - [ ] Title | Field1 | Field2 ...  OR  - [x] Title | ...
+    const m = line.match(/^- \[( |x)\] (.+)$/);
+    if (m) {
+      const done = m[1] === 'x';
+      const parts = m[2].split(' | ').map(s => s.trim());
+      const title = parts[0] || '';
+      const meta = parts.slice(1).filter(Boolean).join(' · ');
+      items.push({ lineIndex: idx, done, title, meta, parts });
+    }
+    // Also match quote-style for wisdom: - "Quote" | Source (source optional)
+    const q = line.match(/^- "(.+?)" \|(.*)$/);
+    if (q && !m) {
+      const source = (q[2] || '').trim();
+      items.push({ lineIndex: idx, done: false, title: q[1], meta: source, parts: [q[1], source], isQuote: true });
+    }
+  });
+  return items;
+}
+
+// ============================================================
+// REBUILD RAW MARKDOWN FROM ITEMS
+// ============================================================
+function rebuildRaw(listDef) {
+  const data = listData[listDef.id];
+  if (!data) return;
+  const lines = data.raw.split('\n');
+  // Keep header and comments intact, rebuild item lines
+  const headerLines = [];
+  let pastHeader = false;
+  for (const line of lines) {
+    if (!pastHeader && !line.match(/^- [\[\"]/) ) {
+      headerLines.push(line);
+    } else {
+      pastHeader = true;
+    }
+  }
+  const itemLines = data.items.map(item => {
+    if (item.isQuote) {
+      return `- "${item.title}" | ${item.parts.slice(1).join(' | ')}`;
+    }
+    const check = item.done ? 'x' : ' ';
+    return `- [${check}] ${item.parts.join(' | ')}`;
+  });
+  data.raw = [...headerLines, ...itemLines, ''].join('\n');
+}
+
+// ============================================================
+// ITEM CRUD
+// ============================================================
+let modalMode = 'add'; // 'add' | 'edit'
+let editingItem = null;
+
+function openAddModal() {
+  modalMode = 'add'; editingItem = null;
+  document.getElementById('modal-title').textContent = 'Add Item';
+  document.getElementById('modal-input-title').value = '';
+  document.getElementById('modal-input-meta').value = '';
+  document.getElementById('modal-input-meta').placeholder = currentList ? currentList.fields.join(' | ') : 'Details';
+  document.getElementById('modal-submit').textContent = 'Add';
+  document.getElementById('modal-delete').classList.add('hidden');
+  document.getElementById('modal').classList.remove('hidden');
+  setTimeout(() => document.getElementById('modal-input-title').focus(), 100);
+}
+
+function openEditModal(item) {
+  modalMode = 'edit'; editingItem = item;
+  document.getElementById('modal-title').textContent = 'Edit Item';
+  document.getElementById('modal-input-title').value = item.title;
+  document.getElementById('modal-input-meta').value = item.parts.slice(1).join(' | ');
+  document.getElementById('modal-input-meta').placeholder = currentList ? currentList.fields.join(' | ') : 'Details';
+  document.getElementById('modal-submit').textContent = 'Save';
+  document.getElementById('modal-delete').classList.remove('hidden');
+  document.getElementById('modal').classList.remove('hidden');
+  setTimeout(() => document.getElementById('modal-input-title').focus(), 100);
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.add('hidden');
+}
+
+async function submitModal() {
+  const title = document.getElementById('modal-input-title').value.trim();
+  if (!title || !currentList) return;
+  const meta = document.getElementById('modal-input-meta').value.trim();
+  const parts = [title, ...(meta ? meta.split('|').map(s=>s.trim()) : [])];
+  const data = listData[currentList.id];
+
+  if (modalMode === 'add') {
+    const isQuote = currentList.id === 'wisdom';
+    data.items.push({ lineIndex: -1, done: false, title, meta: parts.slice(1).join(' · '), parts, isQuote });
+  } else if (modalMode === 'edit' && editingItem) {
+    editingItem.title = title;
+    editingItem.parts = parts;
+    editingItem.meta = parts.slice(1).join(' · ');
+  }
+
+  rebuildRaw(currentList);
+  data.items = parseItems(data.raw, currentList);
+  closeModal(); render();
+  await saveList(currentList);
+}
+
+async function deleteFromModal() {
+  if (!editingItem || !currentList) return;
+  const data = listData[currentList.id];
+  data.items = data.items.filter(i => i !== editingItem);
+  rebuildRaw(currentList);
+  data.items = parseItems(data.raw, currentList);
+  closeModal(); render();
+  await saveList(currentList);
+  showToast('Deleted');
+}
+
+async function toggleDone(item) {
+  if (!currentList) return;
+  item.done = !item.done;
+  const data = listData[currentList.id];
+  rebuildRaw(currentList);
+  data.items = parseItems(data.raw, currentList);
+  render();
+  await saveList(currentList);
+}
+
+// ============================================================
+// BOOK DETAIL (Open Library API)
+// ============================================================
+async function fetchBookDetail(title) {
+  if (bookDetailCache[title]) return bookDetailCache[title];
+  try {
+    const q = encodeURIComponent(title);
+    const r = await fetch(`https://openlibrary.org/search.json?q=${q}&limit=1`);
+    const data = await r.json();
+    if (data.docs && data.docs.length > 0) {
+      const book = data.docs[0];
+      const coverId = book.cover_i;
+      const cover = coverId ? `https://covers.openlibrary.org/b/id/${coverId}-L.jpg` : null;
+      let synopsis = '';
+      // Try to get description from work
+      if (book.key) {
+        try {
+          const wr = await fetch(`https://openlibrary.org${book.key}.json`);
+          const wd = await wr.json();
+          if (wd.description) {
+            synopsis = typeof wd.description === 'string' ? wd.description : wd.description.value || '';
+          }
+        } catch(e) {}
+      }
+      const result = {
+        cover,
+        author: book.author_name ? book.author_name[0] : 'Unknown author',
+        synopsis: synopsis || (book.first_sentence ? (Array.isArray(book.first_sentence) ? book.first_sentence[0] : book.first_sentence) : 'No synopsis available.'),
+        pages: book.number_of_pages_median || null,
+        year: book.first_publish_year || null,
+        subjects: book.subject ? book.subject.slice(0, 4) : []
+      };
+      bookDetailCache[title] = result;
+      return result;
+    }
+  } catch(e) { console.error(e); }
+  return { cover: null, author: 'Unknown', synopsis: 'Could not load book information.', pages: null, year: null, subjects: [] };
+}
+
+function openBookDetail(item) {
+  currentBookItem = item;
+  currentView = 'book-detail';
+  render();
+  // Fetch async and re-render when ready
+  fetchBookDetail(item.title).then(() => render());
+}
+
+function renderBookDetail() {
+  if (!currentBookItem) return '';
+  const detail = bookDetailCache[currentBookItem.title];
+  const loading = !detail;
+
+  let content = '';
+  if (loading) {
+    content = `<div class="book-loading"><div class="spinner"></div>Looking up book info...</div>`;
+  } else {
+    content = `
+      <div class="book-cover-wrap">
+        <div class="book-cover">
+          ${detail.cover ? `<img src="${detail.cover}" alt="Cover" onerror="this.parentElement.innerHTML='<div class=no-cover>📚</div>'"/>` : '<div class="no-cover">📚</div>'}
+        </div>
+      </div>
+      <div class="book-info">
+        <h2>${esc(currentBookItem.title)}</h2>
+        <div class="book-author">${esc(detail.author)}</div>
+        <div class="book-meta-row">
+          ${detail.year ? `<span class="book-pill">${detail.year}</span>` : ''}
+          ${detail.pages ? `<span class="book-pill">${detail.pages} pages</span>` : ''}
+          ${detail.subjects.map(s => `<span class="book-pill">${esc(s)}</span>`).join('')}
+        </div>
+      </div>
+      <div class="book-synopsis">
+        <h3>Synopsis</h3>
+        <p>${esc(detail.synopsis).substring(0, 800)}${detail.synopsis.length > 800 ? '...' : ''}</p>
+      </div>
+      <button class="book-edit-btn" onclick="openEditModalFromDetail()">Edit List Entry</button>`;
+  }
+
+  return `
+    <div class="header">
+      <button class="back-btn" onclick="backFromBookDetail()">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        Reading
+      </button>
+      <div style="width:34px;"></div>
+    </div>
+    <div class="book-detail">${content}</div>`;
+}
+
+function backFromBookDetail() {
+  currentView = 'list';
+  currentBookItem = null;
+  render();
+  attachListEvents();
+}
+
+function openEditModalFromDetail() {
+  if (currentBookItem) openEditModal(currentBookItem);
+}
+
+// ============================================================
+// RESTAURANT DETAIL (Google Places API - Text Search)
+// ============================================================
+let currentRestoItem = null;
+let restoDetailCache = {};
+
+async function fetchRestoDetail(name, location) {
+  const key = name + '|' + (location || '');
+  if (restoDetailCache[key]) return restoDetailCache[key];
+  try {
+    const query = encodeURIComponent(name + (location ? ' ' + location : ''));
+    // Use Google Places text search (requires API key for production)
+    // Fallback: use a search approach with publicly available data
+    // For now, use a curated local data approach + web fallback
+    const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${query}+restaurant&format=json&limit=1`);
+    const geo = await r.json();
+
+    let result = {
+      photo: null,
+      photos: [],
+      rating: null,
+      reviews: [],
+      address: geo[0] ? geo[0].display_name : (location || ''),
+      hours: null,
+      price: null,
+      description: '',
+      website: null,
+      mapUrl: `https://www.google.com/maps/search/${query}`
+    };
+
+    // Try Yelp-style search via Open Street Map + Wikipedia for description
+    // For a richer experience, fetch from Wikipedia if available
+    const wikiQuery = encodeURIComponent(name + ' restaurant' + (location ? ' ' + location : ''));
+    try {
+      const wr = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(name)}`);
+      if (wr.ok) {
+        const wd = await wr.json();
+        if (wd.extract && wd.extract.toLowerCase().includes('restaurant')) {
+          result.description = wd.extract;
+          if (wd.thumbnail) result.photo = wd.thumbnail.source;
+        }
+      }
+    } catch(e) {}
+
+    // If no Wikipedia result, try a general search description
+    if (!result.description) {
+      result.description = `${name} is a restaurant${location ? ' located in ' + location : ''}. Tap "View on Google Maps" below for full details, photos, and reviews.`;
+    }
+
+    restoDetailCache[key] = result;
+    return result;
+  } catch(e) {
+    console.error(e);
+    return { photo: null, photos: [], rating: null, reviews: [], address: location || '', hours: null, price: null, description: 'Could not load restaurant information.', website: null, mapUrl: `https://www.google.com/maps/search/${encodeURIComponent(name)}` };
+  }
+}
+
+function openRestoDetail(item) {
+  currentRestoItem = item;
+  currentView = 'resto-detail';
+  render();
+  const location = item.parts[2] || ''; // Location field from markdown
+  fetchRestoDetail(item.title, location).then(() => render());
+}
+
+function renderRestoDetail() {
+  if (!currentRestoItem) return '';
+  const location = currentRestoItem.parts[2] || '';
+  const key = currentRestoItem.title + '|' + location;
+  const detail = restoDetailCache[key];
+  const loading = !detail;
+
+  let content = '';
+  if (loading) {
+    content = `<div class="book-loading"><div class="spinner"></div>Looking up restaurant info...</div>`;
+  } else {
+    const cuisine = currentRestoItem.parts[1] || '';
+    content = `
+      <div class="resto-hero">
+        ${detail.photo ? `<img src="${detail.photo}" alt="${esc(currentRestoItem.title)}" onerror="this.parentElement.innerHTML='<div class=no-photo>🍽️</div>'"/>` : '<div class="no-photo">🍽️</div>'}
+      </div>
+      <div class="resto-info">
+        <h2>${esc(currentRestoItem.title)}</h2>
+        ${cuisine ? `<div class="resto-cuisine">${esc(cuisine)}</div>` : ''}
+        ${detail.rating ? `<div class="resto-rating"><span class="resto-stars">${'★'.repeat(Math.round(detail.rating))}${'☆'.repeat(5-Math.round(detail.rating))}</span><span class="resto-rating-text">${detail.rating}/5</span></div>` : ''}
+        <div class="resto-address">${esc(detail.address)}</div>
+        ${detail.price ? `<span class="resto-price">${detail.price}</span>` : ''}
+      </div>
+      <div class="resto-section">
+        <h3>About</h3>
+        <p>${esc(detail.description)}</p>
+      </div>
+      ${detail.photos.length > 0 ? `
+      <div class="resto-section">
+        <h3>Photos</h3>
+        <div class="resto-photos">${detail.photos.map(p => `<img src="${p}" alt="Photo"/>`).join('')}</div>
+      </div>` : ''}
+      <a class="resto-link" href="${detail.mapUrl}" target="_blank" rel="noopener">View on Google Maps →</a>
+      <button class="book-edit-btn" onclick="openEditModalFromRestoDetail()">Edit List Entry</button>`;
+  }
+
+  return `
+    <div class="header">
+      <button class="back-btn" onclick="backFromRestoDetail()">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        Restaurants
+      </button>
+      <div style="width:34px;"></div>
+    </div>
+    <div class="resto-detail">${content}</div>`;
+}
+
+function backFromRestoDetail() {
+  currentView = 'list';
+  currentRestoItem = null;
+  render();
+  attachListEvents();
+}
+
+function openEditModalFromRestoDetail() {
+  if (currentRestoItem) openEditModal(currentRestoItem);
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function render() {
+  const app = document.getElementById('app');
+
+  if (!accessToken) {
+    app.innerHTML = renderAuth();
+    return;
+  }
+
+  if (currentView === 'home') {
+    app.innerHTML = renderHome();
+  } else if (currentView === 'list' && currentList) {
+    app.innerHTML = renderListView();
+    attachListEvents();
+  } else if (currentView === 'book-detail') {
+    app.innerHTML = renderBookDetail();
+  } else if (currentView === 'resto-detail') {
+    app.innerHTML = renderRestoDetail();
+  } else if (currentView === 'settings') {
+    app.innerHTML = renderSettings();
+  }
+}
+
+function renderAuth() {
+  const err = localStorage.getItem('auth_error');
+  return `
+    <div class="auth-screen">
+      <div style="font-size:48px; margin-bottom:16px;">📋</div>
+      <h2>My Lists</h2>
+      <p>Sign in with Microsoft to sync your lists to OneDrive.</p>
+      <button class="auth-btn" onclick="login()">Sign In</button>
+      ${err ? `<p class="auth-error">${err}</p>` : ''}
+    </div>`;
+}
+
+function renderHome() {
+  let tiles = LISTS.map(l => {
+    const data = listData[l.id];
+    const count = data ? data.items.length : 0;
+    const countLabel = l.id === 'gift-cards' ? `${count} card${count!==1?'s':''}` :
+                       l.id === 'wisdom' ? `${count} phrase${count!==1?'s':''}` :
+                       l.id === 'fashion' ? `${count} brand${count!==1?'s':''}` :
+                       l.id === 'restaurants' ? `${count} place${count!==1?'s':''}` :
+                       l.id === 'reading' ? `${count} book${count!==1?'s':''}` :
+                       `${count} item${count!==1?'s':''}`;
+    return `<div class="grid-tile ${l.tileClass}" onclick="openList('${l.id}')">
+      <div class="tile-icon">${l.icon}</div>
+      <div>
+        <div class="tile-name">${l.name}</div>
+        <div class="tile-count">${countLabel}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  return `
+    <div class="header">
+      <h1>My Lists</h1>
+      <div class="header-btns">
+        <button class="icon-btn" onclick="openSettings()">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="grid">${tiles}</div>
+    ${syncStatus ? `<div class="sync-status ${syncError?'error':''}">${syncStatus}</div>` : ''}`;
+}
+
+function renderListView() {
+  const data = listData[currentList.id];
+  const items = data ? data.items : [];
+  let filtered = items;
+  if (searchQ) {
+    const q = searchQ.toLowerCase();
+    filtered = items.filter(i => i.title.toLowerCase().includes(q) || i.meta.toLowerCase().includes(q));
+  }
+  // Sort: undone first, then done
+  const undone = filtered.filter(i => !i.done);
+  const done = filtered.filter(i => i.done);
+
+  let itemsHtml = '';
+  if (filtered.length === 0 && !searchQ) {
+    itemsHtml = `<div class="empty-state">
+      <div class="empty-icon">${currentList.icon}</div>
+      <p>No items yet.<br>Tap + to add one.</p>
+    </div>`;
+  } else if (filtered.length === 0 && searchQ) {
+    itemsHtml = `<div class="empty-state"><p>No results found.</p></div>`;
+  } else {
+    itemsHtml = [...undone, ...done].map(item => `
+      <div class="item-card" data-line="${item.lineIndex}">
+        ${currentList.id !== 'wisdom' ? `
+        <div class="item-check ${item.done?'done':''}" data-toggle="${item.lineIndex}">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>` : ''}
+        <div class="item-body" data-edit="${item.lineIndex}">
+          <div class="item-title ${item.done?'done':''}">${currentList.id === 'wisdom' ? '"'+esc(item.title)+'"' : esc(item.title)}</div>
+          ${item.meta ? `<div class="item-meta">${esc(item.meta)}</div>` : ''}
+        </div>
+      </div>`).join('');
+  }
+
+  return `
+    <div class="header">
+      <button class="back-btn" onclick="goHome()">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        Lists
+      </button>
+      <h1 style="font-size:18px; position:absolute; left:50%; transform:translateX(-50%);">${currentList.name}</h1>
+      <div class="header-btns">
+        <button class="icon-btn" onclick="syncCurrentList()">
+          <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="list-view">
+      <div class="search-bar">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Search ${currentList.name.toLowerCase()}..." value="${esc(searchQ)}" oninput="searchItems(this.value)" />
+      </div>
+      ${itemsHtml}
+      ${syncStatus ? `<div class="sync-status ${syncError?'error':''}">${syncStatus}</div>` : ''}
+    </div>
+    <button class="fab" onclick="openAddModal()">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>`;
+}
+
+function renderSettings() {
+  return `
+    <div class="header">
+      <button class="back-btn" onclick="goHome()">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        Lists
+      </button>
+      <h1 style="font-size:18px;">Settings</h1>
+      <div style="width:34px;"></div>
+    </div>
+    <div class="settings">
+      <div class="setting-row">
+        <label>Theme</label>
+        <select onchange="setTheme(this.value)">
+          <option value="auto" ${themeMode==='auto'?'selected':''}>Auto</option>
+          <option value="light" ${themeMode==='light'?'selected':''}>Light</option>
+          <option value="dark" ${themeMode==='dark'?'selected':''}>Dark</option>
+        </select>
+      </div>
+      <div class="setting-row">
+        <label>Synced to</label>
+        <span style="font-size:13px; color:var(--sub);">OneDrive</span>
+      </div>
+      <button class="logout-btn" onclick="logout()">Sign Out</button>
+    </div>`;
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function openList(id) {
+  currentList = LISTS.find(l => l.id === id);
+  currentView = 'list';
+  searchQ = '';
+  render();
+}
+
+function goHome() {
+  currentView = 'home'; currentList = null; searchQ = '';
+  render();
+}
+
+function openSettings() {
+  currentView = 'settings';
+  render();
+}
+
+function setTheme(t) {
+  themeMode = t; applyTheme(); render();
+}
+
+function logout() {
+  accessToken = null;
+  localStorage.removeItem('ms_token');
+  localStorage.removeItem('ms_refresh_token');
+  render();
+}
+
+function searchItems(q) {
+  searchQ = q;
+  render();
+}
+
+async function syncCurrentList() {
+  if (!currentList) return;
+  syncStatus = 'Syncing...'; syncError = false; render();
+  await loadList(currentList);
+  syncStatus = 'Synced ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  syncError = false;
+  render();
+}
+
+// ============================================================
+// LIST EVENTS
+// ============================================================
+function attachListEvents() {
+  document.querySelectorAll('[data-toggle]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.stopPropagation();
+      const lineIdx = parseInt(el.dataset.toggle);
+      const data = listData[currentList.id];
+      const item = data.items.find(i => i.lineIndex === lineIdx);
+      if (item) toggleDone(item);
+    });
+  });
+  document.querySelectorAll('[data-edit]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.stopPropagation();
+      const lineIdx = parseInt(el.dataset.edit);
+      const data = listData[currentList.id];
+      const item = data.items.find(i => i.lineIndex === lineIdx);
+      if (!item) return;
+      // For reading list, open book detail view
+      if (currentList.id === 'reading') {
+        openBookDetail(item);
+      } else if (currentList.id === 'restaurants') {
+        openRestoDetail(item);
+      } else {
+        openEditModal(item);
+      }
+    });
+  });
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !document.getElementById('modal').classList.contains('hidden')) submitModal();
+  if (e.key === 'Escape') closeModal();
+});
+
+// Back button (browser)
+window.addEventListener('popstate', () => {
+  if (currentView === 'book-detail') { backFromBookDetail(); }
+  else if (currentView === 'resto-detail') { backFromRestoDetail(); }
+  else if (currentView !== 'home') { goHome(); }
+});
+
+// ============================================================
+// BOOT
+// ============================================================
+async function boot() {
+  const app = document.getElementById('app');
+  app.innerHTML = `<div class="loading"><div class="spinner"></div></div>`;
+
+  const params = new URLSearchParams(location.search);
+  const code = params.get('code');
+  const urlError = params.get('error');
+  const returnedState = params.get('state');
+
+  if (urlError) {
+    localStorage.setItem('auth_error', params.get('error_description') || urlError);
+    history.replaceState({}, '', location.pathname);
+    render(); return;
+  }
+
+  if (code) {
+    const ok = await exchangeCode(code, returnedState);
+    if (!ok) { render(); return; }
+  } else {
+    accessToken = localStorage.getItem('ms_token');
+    if (accessToken) {
+      const ok = await refreshToken();
+      if (!ok) accessToken = localStorage.getItem('ms_token');
+    }
+  }
+
+  if (!accessToken) { render(); return; }
+
+  try {
+    await loadAllLists();
+    syncStatus = 'Synced ' + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    render();
+  } catch(e) {
+    console.error(e);
+    syncStatus = 'Sync error'; syncError = true;
+    render();
+  }
+}
+
+boot();
+</script>
+</body>
+</html>
